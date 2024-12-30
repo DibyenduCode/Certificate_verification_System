@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Verification</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: rgb(31, 117, 254);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .container {
+            max-width: 600px;
+            width: 90%;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo img {
+            max-width: 150px;
+            height: auto;
+        }
+        h2 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+            font-weight: bold;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: #555;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            transition: 0.3s ease;
+            outline: none;
+        }
+        input[type="text"]:focus {
+            border-color: rgb(31, 117, 254);
+            box-shadow: 0 0 5px rgba(31, 117, 254, 0.5);
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: rgb(31, 117, 254);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(31, 117, 254, 0.4);
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+            font-size: 16px;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        .result p {
+            margin: 8px 0;
+        }
+        .result.success {
+            background-color: #eaffd0;
+            border: 1px solid #b6e388;
+        }
+        .result.error {
+            background-color: #ffd6d9;
+            border: 1px solid #ff9aa4;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            h2 {
+                font-size: 20px;
+            }
+            button {
+                font-size: 14px;
+            }
+        }
+        @media (max-width: 480px) {
+            h2 {
+                font-size: 18px;
+            }
+            button {
+                font-size: 13px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="logo">
+        <img src="logo.png" alt="Logo">
+    </div>
+    <h2>Certificate Verification</h2>
+    
+    <div class="input-group">
+        <label for="certificate_number">Enter Certificate Number</label>
+        <input type="text" id="certificate_number" placeholder="e.g. rsetert55fg">
+    </div>
+
+    <button onclick="verifyCertificate()">Verify</button>
+
+    <div id="result" class="result"></div>
+</div>
+
+<script>
+    async function verifyCertificate() {
+        const certificateNumber = document.getElementById('certificate_number').value;
+        const resultDiv = document.getElementById('result');
+
+        resultDiv.style.display = 'none'; // Hide the result initially
+
+        if (!certificateNumber) {
+            resultDiv.innerHTML = 'Please enter a certificate number.';
+            resultDiv.className = 'result error';
+            resultDiv.style.display = 'block';
+            return;
+        }
+
+        try {
+            // Simulating API call for demonstration
+            const response = await fetch(`http://localhost/cert/api.php?certificate_number=${certificateNumber}`);
+            const data = await response.json();
+
+            if (data.status === 'success') {
+                resultDiv.innerHTML = `
+                    <p><strong>Certificate Number:</strong> ${data.certificate_number}</p>
+                    <p><strong>Student Name:</strong> ${data.student_name}</p>
+                    <p><strong>Course:</strong> ${data.course}</p>
+                    <p><strong>Email:</strong> ${data.email}</p>
+                    <p><strong>Phone Number:</strong> ${data.phone_number}</p>
+                    <p><strong>Issue Date:</strong> ${data.issue_date}</p>
+                    <p><strong>Mentor Name:</strong> ${data.mentor_name}</p>
+                `;
+                resultDiv.className = 'result success';
+                resultDiv.style.display = 'block';
+            } else {
+                resultDiv.innerHTML = data.message || 'Invalid certificate number.';
+                resultDiv.className = 'result error';
+                resultDiv.style.display = 'block';
+            }
+        } catch (error) {
+            resultDiv.innerHTML = 'Error verifying certificate.';
+            resultDiv.className = 'result error';
+            resultDiv.style.display = 'block';
+        }
+    }
+</script>
+
+</body>
+</html>
