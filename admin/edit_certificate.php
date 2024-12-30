@@ -93,6 +93,10 @@ if (mysqli_num_rows($result) == 1) {
                         <option value="Digital Marketing" <?php echo ($row['course'] == 'Digital Marketing') ? 'selected' : ''; ?>>Digital Marketing</option>
                         <option value="Web Development(Coding)" <?php echo ($row['course'] == 'Web Development(Coding)') ? 'selected' : ''; ?>>Web Development(Coding)</option>
                         <option value="Android App Development" <?php echo ($row['course'] == 'Android App Development') ? 'selected' : ''; ?>>Android App Development</option>
+                        <option value="Google Ads" <?php echo ($row['course'] == 'Google Ads') ? 'selected' : ''; ?>>Google Ads</option>
+                        <option value="Video Editing" <?php echo ($row['course'] == 'Video Editing') ? 'selected' : ''; ?>>Video Editing</option>
+                        <option value="Youtube Challange" <?php echo ($row['course'] == 'Youtube Challange') ? 'selected' : ''; ?>>Youtube Challange</option>
+                        <option value="Copy Writing" <?php echo ($row['course'] == 'Copy Writing') ? 'selected' : ''; ?>>Copy Writing</option>
                     </select>
                 </div>
                 <div>
@@ -107,10 +111,17 @@ if (mysqli_num_rows($result) == 1) {
                     <label for="mentor_name" class="block text-sm font-medium text-gray-600">Mentor Name</label>
                     <select name="mentor_name" id="mentor_name" class="mt-1 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500">
                         <option value="">Select a mentor</option>
-                        <option value="Anirban Da" <?php echo ($row['mentor_name'] == 'Anirban Da') ? 'selected' : ''; ?>>Anirban Da</option>
-                        <option value="Asif Da" <?php echo ($row['mentor_name'] == 'Asif Da') ? 'selected' : ''; ?>>Asif Da</option>
-                        <option value="Bivas Da" <?php echo ($row['mentor_name'] == 'Bivas Da') ? 'selected' : ''; ?>>Bivas Da</option>
-                        <option value="Souvik Da" <?php echo ($row['mentor_name'] == 'Souvik Da') ? 'selected' : ''; ?>>Souvik Da</option>
+                        <option value="Anirban Biswas" <?php echo ($row['mentor_name'] == 'Anirban Biswas') ? 'selected' : ''; ?>>Anirban Biswas</option>
+                        <option value="Soubhik Mridha" <?php echo ($row['mentor_name'] == 'Soubhik Mridha') ? 'selected' : ''; ?>>Soubhik Mridha</option>
+                        <option value="Chanchal Halder" <?php echo ($row['mentor_name'] == 'Chanchal Halder') ? 'selected' : ''; ?>>Chanchal Halder</option>
+                        <option value="Soubhik Mridha & Chanchal Halder" <?php echo ($row['mentor_name'] == 'Soubhik Mridha & Chanchal Halder') ? 'selected' : ''; ?>>Soubhik Mridha & Chanchal Halder</option>
+                        <option value="SK Asif Ali" <?php echo ($row['mentor_name'] == 'SK Asif Ali') ? 'selected' : ''; ?>>SK Asif Ali</option>
+                        <option value="Kuntal Ghosh" <?php echo ($row['mentor_name'] == 'Kuntal Ghosh') ? 'selected' : ''; ?>>Kuntal Ghosh</option>
+                        <option value="Chayan Roy" <?php echo ($row['mentor_name'] == 'Chayan Roy') ? 'selected' : ''; ?>>Chayan Roy</option>
+                        <option value="Oindril Goaldar" <?php echo ($row['mentor_name'] == 'Oindril Goaldar') ? 'selected' : ''; ?>>Oindril Goaldar</option>
+                        <option value="Manik Paik" <?php echo ($row['mentor_name'] == 'Manik Paik') ? 'selected' : ''; ?>>Manik Paik</option>
+                        <option value="Bivas Das" <?php echo ($row['mentor_name'] == 'Bivas Das') ? 'selected' : ''; ?>>Bivas Das</option>
+                        <option value="Anjan Roy" <?php echo ($row['mentor_name'] == 'Anjan Roy') ? 'selected' : ''; ?>>Anjan Roy</option>
                     </select>
                 </div>
                 <div>

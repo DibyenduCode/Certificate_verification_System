@@ -170,6 +170,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <option value="Digital Marketing">Digital Marketing</option>
           <option value="Web Development(Coding)">Web Development(Coding)</option>
           <option value="Android App Development">Android App Development</option>
+          <option value="Google Ads">Google Ads</option>
+          <option value="Video Editing">Video Editing</option>
+          <option value="Youtube Challange">Youtube Challange</option>
+          <option value="Copy Writing">Copy Writing</option>
         </select>
       </div>
       <div>
@@ -188,10 +192,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label for="mentor_name" class="block text-sm font-medium text-gray-600">Mentor Name</label>
         <select name="mentor_name" id="mentor_name" class="mt-1 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500">
           <option value="">Select a mentor</option>
-          <option value="Anirban Da">Anirban Da</option>
-          <option value="Asif Da">Asif Da</option>
-          <option value="Bivas Da">Bivas Da</option>
-          <option value="Souvik Da">Souvik Da</option>
+          <option value="Anirban Biswas">Anirban Biswas</option>
+          <option value="Soubhik Mridha">Soubhik Mridha</option>
+          <option value="Chanchal Halder">Chanchal Halder</option>
+          <option value="Soubhik Mridha & Chanchal Halder">Soubhik Mridha & Chanchal Halder</option>
+          <option value="SK Asif Ali">SK Asif Ali</option>
+          <option value="Kuntal Ghosh">Kuntal Ghosh</option>
+          <option value="Chayan Roy">Chayan Roy</option>
+          <option value="Oindril Goaldar">Oindril Goaldar</option>
+          <option value="Manik Paik">Manik Paik</option>
+          <option value="Bivas Das">Bivas Das</option>
+          <option value="Anjan Roy">Anjan Roy</option>
         </select>
       </div>
       <div class="md:col-span-2 text-center">
