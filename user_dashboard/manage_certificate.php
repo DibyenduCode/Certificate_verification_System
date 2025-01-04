@@ -81,8 +81,8 @@ $total_pages = ceil($total_records / $limit);
         
         <!-- Navigation Menu -->
         <div class="flex space-x-6">
-        <a href="../user_dashboard/index.php.php" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md">Add Certificate</a>
-          <a href="../user_dashboard//manage_certificate.php" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md">Management Certificate</a>
+        <a href="../user_dashboard/index.php" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md">Add Certificate</a>
+          <a href="../user_dashboard/manage_certificate.php" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md">Management Certificate</a>
      
         
           <!-- Profile Dropdown -->
@@ -97,7 +97,7 @@ $total_pages = ceil($total_records / $limit);
   <!-- Dropdown Menu -->
   <div id="dropdownMenu" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg hidden">
     <div class="py-2">
-      <a href="../user_dashboard//profile.php" class="block text-gray-800 hover:bg-gray-100 px-4 py-2">Edit Profile</a>
+      <a href="../user_dashboard/profile.php" class="block text-gray-800 hover:bg-gray-100 px-4 py-2">Edit Profile</a>
       <a href="../admin/logout.php" class="block text-gray-800 hover:bg-gray-100 px-4 py-2">Logout</a>
     </div>
   </div>
@@ -156,12 +156,7 @@ $total_pages = ceil($total_records / $limit);
                                 Edit
                             </a>
                             <!-- Delete Button -->
-                            <a href="/user_dashboard/delete_certificate.php?id=<?php echo $row['id']; ?>" 
-                               class="inline-block bg-red-600 text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1 ml-4" 
-                               onclick="return confirm('Are you sure you want to delete this record?');">
-                                Delete
-                            </a>
-                        </td>
+                           
                     </tr>
                     <?php
                 }

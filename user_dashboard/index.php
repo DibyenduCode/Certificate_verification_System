@@ -114,8 +114,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         <!-- Navigation Menu -->
         <div class="flex space-x-6">
-        <a href="../user_dashboard/index.php.php" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md">Add Certificate</a>
-          <a href="../user_dashboard//manage_certificate.php" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md">Management Certificate</a>
+        <a href="../user_dashboard/index.php" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md">Add Certificate</a>
+          <a href="../user_dashboard/manage_certificate.php" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md">Management Certificate</a>
      
         
           <!-- Profile Dropdown -->
@@ -130,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <!-- Dropdown Menu -->
   <div id="dropdownMenu" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg hidden">
     <div class="py-2">
-      <a href="../user_dashboard//profile.php" class="block text-gray-800 hover:bg-gray-100 px-4 py-2">Edit Profile</a>
+      <a href="../user_dashboard/profile.php" class="block text-gray-800 hover:bg-gray-100 px-4 py-2">Edit Profile</a>
       <a href="../admin/logout.php" class="block text-gray-800 hover:bg-gray-100 px-4 py-2">Logout</a>
     </div>
   </div>

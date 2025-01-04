@@ -124,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <!-- Dropdown Menu -->
   <div id="dropdownMenu" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg hidden">
     <div class="py-2">
-      <a href="/user_dashboard//profile.php" class="block text-gray-800 hover:bg-gray-100 px-4 py-2">Edit Profile</a>
+      <a href="../user_dashboard/profile.php" class="block text-gray-800 hover:bg-gray-100 px-4 py-2">Edit Profile</a>
       <a href="../admin/logout.php" class="block text-gray-800 hover:bg-gray-100 px-4 py-2">Logout</a>
     </div>
   </div>
@@ -174,7 +174,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="mb-6 space-y-6">
         <div>
             <label for="new_username" class="block text-sm font-medium text-gray-700">New Username</label>
-            <input type="text" id="new_username" name="new_username" value="<?php echo htmlspecialchars($current_username); ?>" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-gray-900">
+            <input type="text" id="new_username" name="new_username" value="<?php echo htmlspecialchars($current_username); ?>" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600 cursor-not-allowed" readonly>
         </div>
 
         <div>
@@ -195,6 +195,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </form>
 
+
     </div>
 
     <!-- Footer -->
@@ -204,14 +205,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 &copy; <span id="currentYear"></span> Biswas Company. All Rights Reserved.
             </div>
         </div>
-        <script>
-            document.getElementById('currentYear').textContent = new Date().getFullYear();
-        </script>
     </footer>
 
     <script>
         document.getElementById('currentYear').textContent = new Date().getFullYear();
     </script>
-</body>
 
+</body>
 </html>
