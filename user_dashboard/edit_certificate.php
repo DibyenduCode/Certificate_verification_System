@@ -2,9 +2,8 @@
 include '../db_connect.php'; 
 include '../auth.php'; 
 
-if (!isset($_SESSION['admin_id']) || $_SESSION['role'] !== 'admin') {
-    // Redirect to the user dashboard if the user is not an admin
-    header("Location: ../user_dashboard/index.php");
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: ../admin/login.php"); // Redirect to login if not logged in
     exit();
 }
 
@@ -38,7 +37,7 @@ if (mysqli_num_rows($result) == 1) {
                 WHERE id = $certificate_id";
 
         if (mysqli_query($conn, $sql)) {
-            header("Location: ../admin/manage_certificate.php"); // Redirect to dashboard after successful update
+            header("Location: ../user_dashboard/manage_certificate.php"); // Redirect to dashboard after successful update
             exit();
         } else {
             echo "Error updating record: " . mysqli_error($conn);
@@ -67,11 +66,10 @@ if (mysqli_num_rows($result) == 1) {
         
         <!-- Navigation Menu -->
         <div class="flex space-x-6">
-        <a href="../admin/dashboard.php" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md">Add Certificate</a>
-          <a href="../admin/manage_certificate.php" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md">Management Certificate</a>
-          <a href="#" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md">Staff Management</a>
-          <a href="../admin/apidoc.php" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md">API Doc.</a>
-
+        <a href="../user_dashboard/index.php.php" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md">Add Certificate</a>
+          <a href="../user_dashboard/manage_certificate.php" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md">Management Certificate</a>
+     
+        
           <!-- Profile Dropdown -->
           <div class="relative">
   <button id="profileButton" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md flex items-center space-x-2">
@@ -84,7 +82,7 @@ if (mysqli_num_rows($result) == 1) {
   <!-- Dropdown Menu -->
   <div id="dropdownMenu" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg hidden">
     <div class="py-2">
-      <a href="../admin/profile.php" class="block text-gray-800 hover:bg-gray-100 px-4 py-2">Edit Profile</a>
+      <a href="../user_dashboard//profile.php" class="block text-gray-800 hover:bg-gray-100 px-4 py-2">Edit Profile</a>
       <a href="../admin/logout.php" class="block text-gray-800 hover:bg-gray-100 px-4 py-2">Logout</a>
     </div>
   </div>

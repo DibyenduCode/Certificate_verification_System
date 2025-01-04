@@ -1,7 +1,3 @@
-<?php
-// Start the session to manage login state
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,42 +8,17 @@
 </head>
 <body class="bg-gray-100 text-gray-900">
 
-<nav class="bg-blue-600 shadow-md">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="flex justify-between items-center py-4">
+<header class="bg-blue-600 py-4 shadow-md">
+    <div class="max-w-7xl mx-auto text-center">
+      
+    <img src="adminpanel.png" class="w-32 h-12 mx-auto mt-2">
+        <!-- Title -->
+        <h1 class="text-white text-3xl font-semibold">API Documentation</h1>
         <!-- Logo -->
-        <div class="text-white text-2xl font-semibold">
-        <a href="../admin/dashboard.php" class="text-white"><img src="adminpanel.png" class="w-40"></a>
-        </div>
         
-        <!-- Navigation Menu -->
-        <div class="flex space-x-6">
-          <a href="../admin/dashboard.php" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md">Certificate Management</a>
-          <a href="../admin/apidoc.php" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md">API Doc.</a>
-
-          <!-- Profile Dropdown -->
-          <div class="relative">
-  <button id="profileButton" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md flex items-center space-x-2">
-    <span>Profile</span>
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-5 w-5">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-    </svg>
-  </button>
-
-  <!-- Dropdown Menu -->
-  <div id="dropdownMenu" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg hidden">
-    <div class="py-2">
-      <a href="../admin/profile.php" class="block text-gray-800 hover:bg-gray-100 px-4 py-2">Edit Profile</a>
-      <a href="../admin/logout.php" class="block text-gray-800 hover:bg-gray-100 px-4 py-2">Logout</a>
     </div>
-  </div>
-</div>
+</header>
 
-          </div>
-        </div>
-      </div>
-    </div>
-  </nav>
 
 <div class="container mx-auto my-8 px-6 py-6 bg-white rounded-lg shadow-lg">
 
@@ -113,25 +84,6 @@
 <footer class="bg-blue-600 text-white text-center py-4 mt-8">
     <p>&copy; 2024 Biswas Company. All rights reserved.</p>
 </footer>
-
-<script>
-        // Script to toggle the dropdown menu
-        document.addEventListener('DOMContentLoaded', function () {
-            const profileButton = document.getElementById('profileButton');
-            const dropdownMenu = document.getElementById('dropdownMenu');
-
-            profileButton.addEventListener('click', function () {
-                dropdownMenu.classList.toggle('hidden');
-            });
-
-            // Close the dropdown when clicking outside
-            document.addEventListener('click', function (event) {
-                if (!profileButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
-                    dropdownMenu.classList.add('hidden');
-                }
-            });
-        });
-</script>
 
 </body>
 </html>

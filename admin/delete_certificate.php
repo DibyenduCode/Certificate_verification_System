@@ -2,8 +2,9 @@
 include '../db_connect.php'; 
 include '../auth.php'; 
 
-if (!is_admin_logged_in()) {
-    header("Location: ../admin/login.php");
+if (!isset($_SESSION['admin_id']) || $_SESSION['role'] !== 'admin') {
+    // Redirect to the user dashboard if the user is not an admin
+    header("Location: ../user_dashboard/index.php");
     exit();
 }
 
