@@ -69,7 +69,7 @@ if (mysqli_num_rows($result) == 1) {
         <div class="flex space-x-6">
         <a href="../admin/dashboard.php" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md">Add Certificate</a>
           <a href="../admin/manage_certificate.php" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md">Management Certificate</a>
-          <a href="#" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md">Staff Management</a>
+          <a href="../admin/manage_user.php" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md">Staff Management</a>
           <a href="../admin/apidoc.php" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md">API Doc.</a>
 
           <!-- Profile Dropdown -->

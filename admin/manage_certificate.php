@@ -84,7 +84,7 @@ $total_pages = ceil($total_records / $limit);
         <div class="flex space-x-6">
           <a href="../admin/dashboard.php" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md">Add Certificate</a>
           <a href="../admin/manage_certificate.php" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md">Management Certificate</a>
-          <a href="#" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md">Staff Management</a>
+          <a href="../admin/manage_user.php" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md">Staff Management</a>
           <a href="../admin/apidoc.php" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md">API Doc.</a>
 
           <!-- Profile Dropdown -->
@@ -135,6 +135,8 @@ $total_pages = ceil($total_records / $limit);
                 <th class="px-6 py-3 text-left text-xs font-bold text-white uppercase">Phone Number</th>
                 <th class="px-6 py-3 text-left text-xs font-bold text-white uppercase">Issue Date</th>
                 <th class="px-6 py-3 text-left text-xs font-bold text-white uppercase">Mentor Name</th>
+                <th class="px-6 py-3 text-left text-xs font-bold text-white uppercase">User Stamp</th>
+                <th class="px-6 py-3 text-left text-xs font-bold text-white uppercase">Download</th>
                 <th class="px-6 py-3 text-left text-xs font-bold text-white uppercase">Actions</th>
             </tr>
         </thead>
@@ -151,6 +153,15 @@ $total_pages = ceil($total_records / $limit);
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"><?php echo $row['phone_number']; ?></td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"><?php echo $row['issue_date']; ?></td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"><?php echo $row['mentor_name']; ?></td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"><?php echo $row['user_stamp']; ?></td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+    <!-- Download PDF Button -->
+    <a href="generate_certificate.php?id=<?php echo $row['id']; ?>" 
+       class="inline-block bg-green-600 text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-1">
+        Download PDF
+    </a>
+</td>
+
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                             <!-- Edit Button -->
                             <a href="../admin/edit_certificate.php?id=<?php echo $row['id']; ?>" 

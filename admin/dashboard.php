@@ -2,13 +2,15 @@
 include '../db_connect.php';
 include '../auth.php'; // Include authentication check
 
-
 // Check if the user is logged in and has the admin role
 if (!isset($_SESSION['admin_id']) || $_SESSION['role'] !== 'admin') {
     // Redirect to the user dashboard if the user is not an admin
     header("Location: ../user_dashboard/index.php");
     exit();
 }
+
+// Get the username of the logged-in user for the "User Stamp"
+$user_stamp = $_SESSION['username']; // Assuming the username is stored in the session
 
 // Pagination setup
 $limit = 20; // Number of records per page
@@ -28,13 +30,64 @@ $total_pages = ceil($total_records / $limit);
 
 // Handle form submission for adding a new certificate
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $certificate_number = trim($_POST['certificate_number']);
+    // Generate the certificate number (only when form is submitted)
+    $current_year = date("Y");
+
+    // Fetch the last certificate number for the current year
+    $last_certificate_query = "SELECT certificate_number FROM certificates 
+                               WHERE certificate_number LIKE 'CERT{$current_year}%' 
+                               ORDER BY certificate_number DESC LIMIT 1";
+    $last_certificate_result = mysqli_query($conn, $last_certificate_query);
+    $last_certificate_row = mysqli_fetch_assoc($last_certificate_result);
+
+    if ($last_certificate_row) {
+        // Extract the serial number and increment it
+        $last_serial = (int)substr($last_certificate_row['certificate_number'], 8); // "CERTYYYY" is 8 characters
+        $next_serial = $last_serial + 1;
+    } else {
+        // Start the serial number at 1 if no certificate exists for the year
+        $next_serial = 1;
+    }
+
+    // Format the certificate number
+    $next_certificate_number = "CERT{$current_year}" . str_pad($next_serial, 4, "0", STR_PAD_LEFT); // Pads serial to 4 digits
+} else {
+    // Generate the certificate number even if the form is not submitted yet
+    $current_year = date("Y");
+
+    // Fetch the last certificate number for the current year
+    $last_certificate_query = "SELECT certificate_number FROM certificates 
+                               WHERE certificate_number LIKE 'CERT{$current_year}%' 
+                               ORDER BY certificate_number DESC LIMIT 1";
+    $last_certificate_result = mysqli_query($conn, $last_certificate_query);
+    $last_certificate_row = mysqli_fetch_assoc($last_certificate_result);
+
+    if ($last_certificate_row) {
+        // Extract the serial number and increment it
+        $last_serial = (int)substr($last_certificate_row['certificate_number'], 8); // "CERTYYYY" is 8 characters
+        $next_serial = $last_serial + 1;
+    } else {
+        // Start the serial number at 1 if no certificate exists for the year
+        $next_serial = 1;
+    }
+
+    // Format the certificate number
+    $next_certificate_number = "CERT{$current_year}" . str_pad($next_serial, 4, "0", STR_PAD_LEFT); // Pads serial to 4 digits
+}
+
+// Get the other form fields
+$certificate_number = $next_certificate_number; // Auto-generated certificate number
+$student_name = $course = $email = $phone_number = $issue_date = $mentor_name = ''; // Initialize these fields
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get the other form fields
     $student_name = trim($_POST['student_name']);
     $course = trim($_POST['course']);
     $email = trim($_POST['email']);
     $phone_number = trim($_POST['phone_number']);
     $issue_date = trim($_POST['issue_date']);
     $mentor_name = trim($_POST['mentor_name']);
+    $user_stamp = $_SESSION['username']; // Add the logged-in user's name
 
     // Input validation
     $errors = [];
@@ -47,27 +100,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($mentor_name)) $errors[] = "Mentor name is required.";
 
     if (empty($errors)) {
-        $certificate_number = mysqli_real_escape_string($conn, $certificate_number);
+        $certificate_number = mysqli_real_escape_string($conn,$certificate_number);
         $student_name = mysqli_real_escape_string($conn, $student_name);
         $course = mysqli_real_escape_string($conn, $course);
         $email = mysqli_real_escape_string($conn, $email);
         $phone_number = mysqli_real_escape_string($conn, $phone_number);
         $issue_date = mysqli_real_escape_string($conn, $issue_date);
         $mentor_name = mysqli_real_escape_string($conn, $mentor_name);
+        $user_stamp = mysqli_real_escape_string($conn, $user_stamp);
 
         // Insert new certificate data
-        $sql = "INSERT INTO certificates (certificate_number, student_name, course, email, phone_number, issue_date, mentor_name) 
-                VALUES ('$certificate_number', '$student_name', '$course', '$email', '$phone_number', '$issue_date', '$mentor_name')";
+        $sql = "INSERT INTO certificates (certificate_number, student_name, course, email, phone_number, issue_date, mentor_name, user_stamp) 
+                VALUES ('$certificate_number', '$student_name', '$course', '$email', '$phone_number', '$issue_date', '$mentor_name', '$user_stamp')";
 
         if (mysqli_query($conn, $sql)) {
-            header("Location: ../admin/dashboard.php");
-            exit();
+          header("Location: ../admin/dashboard.php");
+          exit();
+            // Send email
+            // include 'send_email.php';
+            // $email_result = sendCertificateEmail($email, $student_name, $course, $issue_date, $mentor_name);
+
+            // if ($email_result === true) {
+            //     header("Location: ../admin/dashboard.php");
+            //     exit();
+            // } else {
+            //     $errors[] = "Certificate added, but email failed: " . $email_result;
+            // }
         } else {
             $errors[] = "Error adding certificate: " . mysqli_error($conn);
         }
     }
 }
 ?>
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -158,7 +226,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div>
         <label for="certificate_number" class="block text-sm font-medium text-gray-600">Certificate Number</label>
-        <input type="text" name="certificate_number" id="certificate_number" class="mt-1 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500">
+        <input type="text" name="certificate_number" value="<?php echo $next_certificate_number; ?>" readonly id="certificate_number" class="mt-1 p-3 w-full bg-gray-50 text-gray-600 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 cursor-not-allowed">
       </div>
       <div>
         <label for="student_name" class="block text-sm font-medium text-gray-600">Student Name</label>
@@ -209,6 +277,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <option value="Anjan Roy">Anjan Roy</option>
         </select>
       </div>
+     <div>
+    <label for="user_stamp" class="block text-sm font-medium text-gray-600">User Stamp</label>
+    <input 
+        type="text" 
+        name="user_stamp" 
+        id="user_stamp" 
+        value="<?php echo htmlspecialchars($user_stamp); ?>" 
+        class="mt-1 p-3 w-full bg-gray-50 text-gray-600 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 cursor-not-allowed" 
+        readonly 
+    >
+</div>
+
       <div class="md:col-span-2 text-center">
         <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-md">Add Certificate</button>
       </div>
