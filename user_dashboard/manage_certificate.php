@@ -35,6 +35,20 @@ $total_result = mysqli_query($conn, $total_sql);
 $total_row = mysqli_fetch_assoc($total_result);
 $total_records = $total_row['total'];
 $total_pages = ceil($total_records / $limit);
+
+//search full certificate db
+
+$search_query = isset($_GET['search']) ? trim($_GET['search']) : '';
+$sql = "SELECT * FROM certificates"; // Initialize base SQL query
+
+if ($search_query) {
+    $sql .= " WHERE student_name LIKE ? OR course LIKE ? OR certificate_number LIKE ?";
+    $stmt = $conn->prepare($sql);
+    $like_query = '%' . $search_query . '%';
+    $stmt->bind_param("sss", $like_query, $like_query, $like_query);
+    $stmt->execute();
+    $result = $stmt->get_result(); // Fetch results
+}
 ?>
 
 <!DOCTYPE html>
@@ -44,7 +58,7 @@ $total_pages = ceil($total_records / $limit);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Certificate Management</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
+    <!-- <script>
         function searchTable() {
             var input, filter, table, tr, td, i, txtValue;
             input = document.getElementById("myInput");
@@ -68,7 +82,7 @@ $total_pages = ceil($total_records / $limit);
                 }       
             }
         }
-    </script>
+    </script> -->
 </head>
 <body class="bg-gray-50 min-h-screen flex flex-col">
 <nav class="bg-blue-600 shadow-md">
@@ -118,9 +132,18 @@ $total_pages = ceil($total_records / $limit);
 
     <!-- Search Bar -->
     <div class="mb-4">
-    <input type="text" id="myInput" onkeyup="searchTable()" placeholder="Search..." class="border border-gray-300 rounded-md p-2 w-full md:w-1/3 mx-auto md:mx-0">
+  <form method="GET" action="">
+    <input 
+      type="text" 
+      name="search" 
+      id="myInput" 
+      placeholder="Search..." 
+      class="border border-gray-300 rounded-md p-2 w-full md:w-1/3 mx-auto md:mx-0"
+      value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>"
+    >
+    <button type="submit" class="p-2 bg-blue-500 text-white rounded-md">Search</button>
+  </form>
 </div>
-
 <!-- Table -->
 <div class="overflow-x-auto">
     <table class="min-w-full table-auto bg-gray-100 shadow rounded-lg overflow-hidden" id="myTable">

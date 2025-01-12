@@ -131,6 +131,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
+$search_query = isset($_GET['search']) ? trim($_GET['search']) : '';
+$sql = "SELECT * FROM certificates"; // Initialize base SQL query
+
+if ($search_query) {
+    $sql .= " WHERE student_name LIKE ? OR course LIKE ? OR certificate_number LIKE ?";
+    $stmt = $conn->prepare($sql);
+    $like_query = '%' . $search_query . '%';
+    $stmt->bind_param("sss", $like_query, $like_query, $like_query);
+    $stmt->execute();
+    $result = $stmt->get_result(); // Fetch results
+}
+
+
 ?>
 
 
@@ -141,7 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
   <title>Admin Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
+  <!-- <script>
     function searchTable() {
       // Declare variables
       var input, filter, table, tr, td, i, txtValue;
@@ -166,7 +180,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
       }
     }
-  </script>
+  </script> -->
 </head>
 <body class="bg-gray-50 min-h-screen flex flex-col">
 <nav class="bg-blue-600 shadow-md">
@@ -296,8 +310,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </form>
   <h2 class="text-2xl font-semibold text-gray-700 mb-4 ml-4">View Certificate</h2>
   <div class="mb-4">
-    <input type="text" id="myInput" onkeyup="searchTable()" placeholder="Search..." class="border border-gray-300 rounded-md p-2 w-full md:w-1/3 mx-auto md:mx-0">
-  </div>
+  <form method="GET" action="">
+    <input 
+      type="text" 
+      name="search" 
+      id="myInput" 
+      placeholder="Search..." 
+      class="border border-gray-300 rounded-md p-2 w-full md:w-1/3 mx-auto md:mx-0"
+      value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>"
+    >
+    <button type="submit" class="p-2 bg-blue-500 text-white rounded-md">Search</button>
+  </form>
+</div>
 
   <div class="overflow-x-auto">
   <table class="min-w-full table-auto bg-gray-100 shadow rounded-lg overflow-hidden" id="myTable">
